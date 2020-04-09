@@ -25,7 +25,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String name = '';
   String empId = '';
   int mobileNumber;
@@ -37,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     loadData();
   }
 
-  loadData() async{
+  loadData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       print("inside loadDAta");
@@ -70,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
             iconSize: 32,
             color: Colors.deepOrange,
             onPressed: () {
-              Navigator.push(context, 
+              Navigator.push(
+                context,
                 MaterialPageRoute(
                   builder: (context) => EmployeeDetails(),
-                  ),
-                );
+                ),
+              );
             },
           )
         ],
@@ -88,10 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  helloTextStyle(
-                      "Welcome", 48.0, FontWeight.bold, Colors.black),
-                  helloTextStyle(name, 32.0, FontWeight.bold,
-                      Colors.grey[700]),
+                  helloTextStyle("Welcome", 48.0, FontWeight.bold, Colors.black),
+                  helloTextStyle(name, 32.0, FontWeight.bold, Colors.grey[700]),
                 ],
               ),
             ),
@@ -100,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: new BoxDecoration(
                   color: Colors.orange,
                   borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(400.0),
+                    topLeft: const Radius.circular(300.0),
                     topRight: const Radius.circular(40.0),
                   ),
                 ),
@@ -109,25 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    employeeDetails("Emp_ID : 0154895"),
-                    SizedBox(height: 10),
-                    employeeDetails("Mob No : 8078057854"),
+                    employeeDetails("Emp_ID : " + empId),
+                    SizedBox(height: 8),
+                    employeeDetails("Mob No : " + mobileNumber.toString()),
                     SizedBox(height: 20),
-                    RaisedButton(
-                      elevation: 8,
-                      textColor: Colors.white,
-                      color: Colors.deepOrange,
-                      padding: EdgeInsets.all(10.0),
-                      child: Text('Enter Details',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.deepOrangeAccent)),
-                      onPressed: () {
-                        print("button pressed");
-                      },
-                    ),
+                    rowButton(),
                   ],
                 ),
               ),
@@ -153,8 +137,46 @@ class _MyHomePageState extends State<MyHomePage> {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget rowButton() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          RaisedButton(
+            elevation: 8,
+            textColor: Colors.white,
+            color: Colors.deepOrange,
+            padding: EdgeInsets.all(10.0),
+            child: Text('View Log',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.deepOrangeAccent)),
+            onPressed: () {
+              print("button pressed");
+            },
+          ),
+          RaisedButton(
+            elevation: 8,
+            textColor: Colors.white,
+            color: Colors.deepOrange,
+            padding: EdgeInsets.all(10.0),
+            child: Text('Enter Details',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.deepOrangeAccent)),
+            onPressed: () {
+              print("button pressed");
+            },
+          ),
+        ],
       ),
     );
   }

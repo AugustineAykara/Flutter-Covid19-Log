@@ -44,6 +44,8 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
       empId = (preferences.getString('empId') ?? '');
       mobileNumber = (preferences.getInt('mobileNumber') ?? '');
       nameController.text = name;
+      empIDController.text = empId;
+      mobileNoController.text = mobileNumber.toString();
     });
   }
 
@@ -75,10 +77,10 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
-                initialValue: name,
+              TextFormField(                
                 controller: nameController,
                 decoration: InputDecoration(
+                  hintText: name,
                   labelText: 'Enter your name',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -87,9 +89,9 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
               ),
               SizedBox(height: 15),
               TextFormField(
-                // initialValue: empId,
                 controller: empIDController,
                 decoration: InputDecoration(
+                  hintText: empId,
                   labelText: 'Enter your employee ID',                  
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -98,10 +100,10 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
               ),
               SizedBox(height: 15),
               TextFormField(
-                // initialValue: mobileNumber.toString(),
                 controller: mobileNoController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                  hintText: mobileNumber.toString(),
                   labelText: 'Enter your mobile number',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25.0),
@@ -114,7 +116,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
                 textColor: Colors.white,
                 color: Colors.deepOrange,
                 padding: EdgeInsets.all(10.0),
-                child: Text('Register',
+                child: Text('SAVE',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -127,7 +129,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => MyApp(),
+                      builder: (context) => MyApp(),
                     ),
                   );
                 },
