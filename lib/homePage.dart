@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'employeeDetails.dart';
+// import 'employeeDetails.dart';
+import 'employeeLog.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
-        "/employeeDetails": (BuildContext context) => EmployeeDetails(),
+        "/employeeDetails": (BuildContext context) => EmployeeLog(),
       },
     );
   }
@@ -25,22 +26,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String name = '';
   String empId = '';
-  int mobileNumber;
+  String mobileNumber = '';
 
   @override
   void initState() {
     super.initState();
-    // print("inside init homepage");
+    print("inside init homepage");
     loadData();
   }
 
   loadData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      // print("inside loadDAta homepage");
+      print("inside loadDAta homepage");
       name = (preferences.getString('name') ?? '');
       empId = (preferences.getString('empId') ?? '');
-      mobileNumber = (preferences.getInt('mobileNumber') ?? '');
+      mobileNumber = (preferences.getString('mobileNumber') ?? '');
     });
   }
 
@@ -48,34 +49,36 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Employee Details",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title: Center(
+          child: Text(
+            "Employee Details",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        actions: <Widget>[
-          Center(
-            child: Text(
-              "My Profile",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            iconSize: 32,
-            color: Colors.deepOrange,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmployeeDetails(),
-                ),
-              );
-            },
-          )
-        ],
+        // actions: <Widget>[
+        //   Center(
+        //     child: Text(
+        //       "My Profile",
+        //       style:
+        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //     ),
+        //   ),
+        // IconButton(
+        //   icon: Icon(Icons.account_circle),
+        //   iconSize: 32,
+        //   color: Colors.deepOrange,
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => EmployeeDetailPage(),
+        //       ),
+        //     );
+        //   },
+        // )
+        // ],
       ),
       body: Center(
         child: Column(
@@ -86,7 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  helloTextStyle("Welcome", 48.0, FontWeight.bold, Colors.black),
+                  helloTextStyle(
+                      "Welcome", 48.0, FontWeight.bold, Colors.black),
                   helloTextStyle(name, 32.0, FontWeight.bold, Colors.grey[700]),
                 ],
               ),
@@ -97,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.orange,
                   borderRadius: new BorderRadius.only(
                     topLeft: const Radius.circular(300.0),
-                    topRight: const Radius.circular(40.0),
+                    // topRight: const Radius.circular(0.0),
                   ),
                 ),
                 alignment: Alignment.bottomCenter,
@@ -107,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     employeeDetails("Emp_ID : " + empId),
                     SizedBox(height: 8),
-                    employeeDetails("Mob No : " + mobileNumber.toString()),
+                    employeeDetails("Mob No : " + mobileNumber),
                     SizedBox(height: 20),
                     rowButton(),
                   ],
@@ -157,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.deepOrangeAccent)),
             onPressed: () {
-              print("button pressed");
+              print("View log");
             },
           ),
           RaisedButton(
@@ -171,7 +175,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.deepOrangeAccent)),
             onPressed: () {
-              print("button pressed");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EmployeeLog(),
+                ),
+              );
             },
           ),
         ],
