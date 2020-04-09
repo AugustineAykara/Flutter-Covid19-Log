@@ -34,42 +34,41 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.orange,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.only(left: 12.0, right: 12.0),
+            height: MediaQuery.of(context).size.height,
+            margin: const EdgeInsets.only(top: 8, left: 8, right: 8),
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Row(
+                Wrap(
+                  runSpacing: 20,
                   children: <Widget>[
-                    dateTextField('Date and Time'),
-                    refreshDate(),
-                  ],
-                ),
-                SizedBox(height: 10),
-                textFormField('Location', locationController),
-                SizedBox(height: 10),
-                textFormField('Landmark', locationController),
-                SizedBox(height: 10),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: textFormField('Lattitude', locationController),
+                    Row(
+                      children: <Widget>[
+                        dateTextField('Date and Time'),
+                        refreshDate(),
+                      ],
                     ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: textFormField('Longitude', locationController),
+                    textFormField('Location', locationController),
+                    textFormField('Landmark', locationController),
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: textFormField('Lattitude', locationController),
+                        ),
+                        SizedBox(width: 10),
+                        Flexible(
+                          child: textFormField('Longitude', locationController),
+                        ),
+                      ],
                     ),
+                    textFormField('Person', locationController),
+                    textFormField('Duration', locationController),
+                    submitButton(),
                   ],
-                ),
-                SizedBox(height: 10),
-                textFormField('Person', locationController),
-                SizedBox(height: 10),
-                textFormField('Duration', locationController),
-                SizedBox(height: 20),
-                submitButton(),
+                )
               ],
             ),
           ),
@@ -97,8 +96,8 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
         controller: dateController,
         decoration: InputDecoration(
           labelText: label,
-          // contentPadding:
-          //     new EdgeInsets.symmetric(vertical: 5.0, horizontal: 25.0),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 17.0, horizontal: 25.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),
@@ -116,8 +115,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        // contentPadding:
-        //     new EdgeInsets.symmetric(vertical: 5.0, horizontal: 25.0),
+        contentPadding: EdgeInsets.symmetric(vertical: 17.0, horizontal: 25.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
         ),
@@ -130,20 +128,22 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
   }
 
   Widget submitButton() {
-    return RaisedButton(
-      elevation: 8,
-      textColor: Colors.white,
-      color: Colors.deepOrange,
-      padding: EdgeInsets.all(10.0),
-      child: Text('SUBMIT',
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 2)),
-      shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(18.0),
-          side: BorderSide(color: Colors.deepOrangeAccent)),
-      onPressed: () {
-        print("submit");
-      },
+    return Center(
+      child: RaisedButton(
+        elevation: 8,
+        textColor: Colors.white,
+        color: Colors.deepOrange,
+        padding: EdgeInsets.all(12.0),
+        child: Text('SUBMIT',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 2)),
+        shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: Colors.deepOrangeAccent)),
+        onPressed: () {
+          print("submit");
+        },
+      ),
     );
   }
 }
