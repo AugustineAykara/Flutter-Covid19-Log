@@ -1,7 +1,6 @@
-import 'package:employee_details/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'main.dart';
+import 'homePage.dart';
 
 class EmployeeDetailPage extends StatelessWidget {
   @override
@@ -9,7 +8,7 @@ class EmployeeDetailPage extends StatelessWidget {
     return MaterialApp(
       home: EmployeeDetails(),
       routes: <String, WidgetBuilder>{
-        "/main": (BuildContext context) => MyApp(),
+        "/homePage": (BuildContext context) => HomePage(),
       },
     );
   }
@@ -129,7 +128,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyApp(),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 },
