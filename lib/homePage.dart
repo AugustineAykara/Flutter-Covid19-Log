@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'employeeDetails.dart';
 
-void main() => runApp(HomePage());
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    print("inside init");
+    // print("inside init homepage");
     loadData();
   }
 
   loadData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      print("inside loadDAta");
+      // print("inside loadDAta homepage");
       name = (preferences.getString('name') ?? '');
       empId = (preferences.getString('empId') ?? '');
       mobileNumber = (preferences.getInt('mobileNumber') ?? '');

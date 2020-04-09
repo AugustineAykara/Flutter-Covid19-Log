@@ -33,24 +33,28 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
+    print("inside main init");
     super.initState();
-    loadData();
-  }
-
-  Future loadData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    name = (preferences.getString('name') ?? '');
-    // empId = (preferences.getString('empId') ?? '');
-    // mobileNumber = (preferences.getInt('mobileNumber') ?? '');
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        name = (prefs.getString('name') ?? '');
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (name.isEmpty) {
-      return EmployeeDetailPage();
+    print("inside main");
+    Widget child;
+    print(name);
+    if (name == '') {
+     child = EmployeeDetailPage();
     } else {
-      return HomePage();
+      child = HomePage();
     }
+    return Container(
+      child: child,
+    );
   }
 }
 

@@ -31,14 +31,14 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   @override
   void initState() {
     super.initState();
-    print("inside init");
+    print("inside init employeepage");
     loadData();
   }
 
   loadData() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      print("inside loadDAta");
+      print("inside loadDAta employeepage");
       name = (preferences.getString('name') ?? '');
       empId = (preferences.getString('empId') ?? '');
       mobileNumber = (preferences.getInt('mobileNumber') ?? '');
@@ -51,7 +51,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   saveData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      print("inside saveDAta");
+      print("inside saveDAta employeepage");
       preferences.setString('name', nameController.text);
       preferences.setString('empId', empIDController.text);
       preferences.setInt('mobileNumber', int.parse(mobileNoController.text));
