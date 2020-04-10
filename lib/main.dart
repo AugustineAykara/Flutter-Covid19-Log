@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: MainPage(),
     );
@@ -48,10 +48,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: initialScreen ? "employeeDetails" : "homePage",
+      initialRoute: initialScreen ? "/employeeDetails" : "/homePage",
       routes: <String, WidgetBuilder>{
-        "employeeDetails": (BuildContext context) => EmployeeDetails(),
-        "homePage": (BuildContext context) => HomePage(),
+        "/employeeDetails": (BuildContext context) => EmployeeDetails(),
+        "/homePage" : (BuildContext context) => HomePage(),
       },
     );
   }

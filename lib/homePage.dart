@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'employeeDetails.dart';
 import 'employeeLog.dart';
 
 class HomePage extends StatelessWidget {
@@ -175,12 +174,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.deepOrangeAccent)),
             onPressed: () {
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EmployeeLog(),
+                  builder: (context) => EmployeeLogDetails(),
                 ),
               );
+              
             },
           ),
         ],
