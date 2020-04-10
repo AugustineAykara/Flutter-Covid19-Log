@@ -95,13 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: Colors.deepOrangeAccent,
                   borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(300.0),
+                    topLeft: const Radius.circular(325.0),
                     // topRight: const Radius.circular(0.0),
                   ),
                 ),
-                alignment: Alignment.bottomCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
+        color: Colors.white
       ),
     );
   }
@@ -150,13 +150,13 @@ class _MyHomePageState extends State<MyHomePage> {
           RaisedButton(
             elevation: 8,
             textColor: Colors.white,
-            color: Colors.deepOrange,
+            color: Colors.orange,
             padding: EdgeInsets.all(10.0),
             child: Text('View Log',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.deepOrangeAccent)),
+                side: BorderSide(color: Colors.orangeAccent)),
             onPressed: () {
                Navigator.push(
                 context,
@@ -169,13 +169,13 @@ class _MyHomePageState extends State<MyHomePage> {
           RaisedButton(
             elevation: 8,
             textColor: Colors.white,
-            color: Colors.deepOrange,
+            color: Colors.orange,
             padding: EdgeInsets.all(10.0),
             child: Text('Enter Details',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.deepOrangeAccent)),
+                side: BorderSide(color: Colors.orangeAccent)),
             onPressed: () {
 
               Navigator.push(

@@ -34,7 +34,15 @@ class _ViewLogDetailsState extends State<ViewLogDetails> {
         .snapshots();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Log Details"),
+        title: Text(
+          "Log Details",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
       ),
       body: StreamBuilder(
         stream: logSnapshot,
@@ -59,10 +67,50 @@ class _ViewLogDetailsState extends State<ViewLogDetails> {
     longitude = documentData['longitude'];
     person = documentData['person'];
     duration = documentData['duration'];
-    
-    return Scaffold(
-      body: Center(
-        child: Text(time + " " + location + " " + landmark + " " + lattitude + " " + longitude + " " + person + " " + duration),
+
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(height: 20),
+          status(Icons.date_range, time),
+          status(Icons.location_on, location),
+          status(Icons.flag, landmark),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: status(Icons.border_horizontal, lattitude),
+              ),
+              Flexible(
+                child: status(Icons.border_vertical, longitude),
+              ),
+            ],
+          ),
+          status(Icons.person_pin, person),
+          status(Icons.timelapse, duration),
+          SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  Widget status(icon, statusAns) {
+    return Card(
+      color: Colors.deepOrangeAccent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 6,
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        leading: InkWell(
+          child: Icon(icon, color: Colors.white, size: 36),
+        ),
+        title: Text(
+          statusAns.toString(),
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
       ),
     );
   }

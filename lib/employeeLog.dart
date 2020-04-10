@@ -84,9 +84,13 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       appBar: AppBar(
         title: Text(
           "Log Details",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.deepOrange,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
       ),
       body: Center(
         child: SingleChildScrollView(
