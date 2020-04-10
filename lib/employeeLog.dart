@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +8,7 @@ class EmployeeLog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.deepOrange,
       ),
       home: EmployeeLogDetails(),
     );
@@ -92,27 +91,18 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            // height: MediaQuery.of(context).size.height,
-            margin: const EdgeInsets.only(left: 12, right: 12),
+            margin: const EdgeInsets.fromLTRB(8, 12, 8, 12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Wrap(
                   runSpacing: 20,
                   children: <Widget>[
-                    // Row(
-                    //   children: <Widget>[
-                    //     Flexible(
-                    //       child: textFormField(
-                    //           'Date and Time', dateController, false),
-                    //     ),
-                    //     refreshDate(),
-                    //   ],
-                    // ),
                     textFormField('Location', locationController, true,
                         TextInputType.text),
                     textFormField('Landmark', landmarkController, true,
                         TextInputType.text),
+                    
                     Row(
                       children: <Widget>[
                         Flexible(
@@ -193,7 +183,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       iconEnabledColor: Colors.grey[600],
       iconSize: 32,
       underline: SizedBox(),
-      hint: Text("Time Format"),
+      hint: Text("Format"),
       value: selectedTimeFormat,
       items: timeFormat.map((value) {
         return DropdownMenuItem<String>(

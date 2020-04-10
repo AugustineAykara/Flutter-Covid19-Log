@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'employeeLog.dart';
+import 'listLog.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
       ),
-      home: MyHomePage(),
-      routes: <String, WidgetBuilder>{
-        "/employeeDetails": (BuildContext context) => EmployeeLog(),
-      },
+      home: MyHomePage(),      
     );
   }
 }
@@ -160,7 +158,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.deepOrangeAccent)),
             onPressed: () {
-              print("View log");
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListLogDetails(),
+                ),
+              );
             },
           ),
           RaisedButton(
@@ -181,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (context) => EmployeeLogDetails(),
                 ),
               );
-              
+
             },
           ),
         ],
