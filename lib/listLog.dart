@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'viewLog.dart';
 
 class ListLog extends StatelessWidget {
   @override
@@ -45,7 +46,7 @@ class _ListLogDetailsState extends State<ListLogDetails> {
                 return Card(
                   margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),                    
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   color: Colors.orange[100],
                   elevation: 5,
@@ -60,9 +61,15 @@ class _ListLogDetailsState extends State<ListLogDetails> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: Icon(Icons.arrow_forward_ios, size: 28),
                     onTap: () {
-                      print("detailed view");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ViewLogDetails(date: document['Date & Time'], empId : widget.empId),
+                        ),
+                      );
                     },
                   ),
                   // ),

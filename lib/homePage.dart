@@ -94,9 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Container(
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.orange,
-                  borderRadius: new BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(300.0),
                     // topRight: const Radius.circular(0.0),
                   ),
