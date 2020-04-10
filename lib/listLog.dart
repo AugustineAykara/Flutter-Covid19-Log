@@ -21,10 +21,8 @@ class ListLogDetails extends StatefulWidget {
 }
 
 class _ListLogDetailsState extends State<ListLogDetails> {
-
   @override
   Widget build(BuildContext context) {
-
     Stream<QuerySnapshot> employeeSnapshot = Firestore.instance
         .collection('employeeData')
         .document('${widget.empId}')
@@ -37,19 +35,37 @@ class _ListLogDetailsState extends State<ListLogDetails> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: employeeSnapshot,
-        builder:
-           (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot)  {
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData)
             return Center(child: Text("Loading..."));
           else {
             return ListView(
-              children: snapshot.data.documents.map((DocumentSnapshot document) {
-                return ListTile(
-                  leading: Icon(Icons.access_time, color: Colors.deepOrange,),
-                  title: Text(document['Date & Time']),
-                  onTap: (){
-                    print("detailed view");
-                  },
+              children:
+                  snapshot.data.documents.map((DocumentSnapshot document) {
+                return Card(
+                  margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),                    
+                  ),
+                  color: Colors.orange[100],
+                  elevation: 5,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.access_time,
+                      size: 28,
+                    ),
+                    title: Text(
+                      document['Date & Time'],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      print("detailed view");
+                    },
+                  ),
+                  // ),
                 );
               }).toList(),
             );
