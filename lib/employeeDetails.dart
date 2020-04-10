@@ -49,7 +49,6 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   saveData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      print("inside saveDAta employeepage");
       preferences.setString('name', nameController.text);
       preferences.setString('empId', empIDController.text);
       preferences.setString('mobileNumber', mobileNoController.text);
@@ -57,16 +56,13 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   }
 
   saveDataOnFirebase() {
-    setState(() {
-      print("fireabse setData");
-      Firestore.instance.collection('employeeData').document(empIDController.text).setData({
-        'name': nameController.text,
-        'empId': empIDController.text,
-        'mobileNumber': mobileNoController.text
-      });
-      Firestore.instance.collection('employeeData').document(empIDController.text).collection('logDetails').document('test').setData({
-        'name' : nameController.text
-      });
+    Firestore.instance
+        .collection('employeeData')
+        .document(empIDController.text)
+        .setData({
+      'name': nameController.text,
+      'empId': empIDController.text,
+      'mobileNumber': mobileNoController.text      
     });
   }
 

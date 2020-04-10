@@ -24,20 +24,20 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   String name = '';
-  // String empId = '';
-  // String mobileNumber = '';
+  String empId = '';
+  String mobileNumber = '';
   bool initialScreen;
 
   @override
   void initState() {
-    print("inside main init");
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
-      prefs.clear();
       setState(() {
         name = (prefs.getString('name') ?? '');
+        empId = (prefs.getString('empId') ?? '');
+        mobileNumber = (prefs.getString('mobileNumber') ?? '');
       });
-      if (name == '') {
+      if (name == '' || empId == '' || mobileNumber =='') {
         initialScreen = true;
       } else {
         initialScreen = false;

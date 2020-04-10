@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmployeeLog extends StatelessWidget {
   @override
@@ -19,16 +21,57 @@ class EmployeeLogDetails extends StatefulWidget {
 }
 
 class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
-  static DateTime now = DateTime.now();
-  static String formattedDate = DateFormat('hh:mm EEE, M/d/y').format(now);
+  static DateTime dateTime = DateTime.now();
+  static String formattedDate = DateFormat('d.MM.y hh:mm a').format(dateTime);
   TextEditingController dateController =
       TextEditingController(text: formattedDate);
+
   TextEditingController locationController = TextEditingController();
+  TextEditingController landmarkController = TextEditingController();
+  TextEditingController lattitudeController = TextEditingController();
+  TextEditingController longitudeController = TextEditingController();
+  TextEditingController personController = TextEditingController();
+  TextEditingController durationController = TextEditingController();
+  String empId;
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        empId = (prefs.getString('empId') ?? '');
+      });
+    });
+  }
 
   getDate() {
-    now = DateTime.now();
-    formattedDate = DateFormat('hh:mm EEE, M/d/y').format(now);
+    dateTime = DateTime.now();
+    formattedDate = DateFormat('d.MM.y hh:mm a').format(dateTime);
     dateController = TextEditingController(text: formattedDate);
+  }
+
+  setData() {
+    Firestore.instance
+        .collection('employeeData')
+        .document(empId)
+        .collection('logDetails')
+        .document(dateController.text)
+        .setData({
+      'Date & Time': dateController.text,
+      'location': locationController.text,
+      'landmark': landmarkController.text,
+      'lattitude': lattitudeController.text,
+      'longitude': longitudeController.text,
+      'person': personController.text,
+      'duration': durationController.text
+    });
+    locationController.text = '';
+    landmarkController.text = '';
+    landmarkController.text = '';
+    lattitudeController.text = '';
+    longitudeController.text = '';
+    personController.text = '';
+    durationController.text = '';
   }
 
   @override
@@ -47,25 +90,30 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        dateTextField('Date and Time'),
+                        Flexible(
+                          child: textFormField(
+                              'Date and Time', dateController, false),
+                        ),
                         refreshDate(),
                       ],
                     ),
-                    textFormField('Location', locationController),
-                    textFormField('Landmark', locationController),
+                    textFormField('Location', locationController, true),
+                    textFormField('Landmark', landmarkController, true),
                     Row(
                       children: <Widget>[
                         Flexible(
-                          child: textFormField('Lattitude', locationController),
+                          child: textFormField(
+                              'Lattitude', lattitudeController, true),
                         ),
                         SizedBox(width: 10),
                         Flexible(
-                          child: textFormField('Longitude', locationController),
+                          child: textFormField(
+                              'Longitude', longitudeController, true),
                         ),
                       ],
                     ),
-                    textFormField('Person', locationController),
-                    textFormField('Duration', locationController),
+                    textFormField('Person', personController, true),
+                    textFormField('Duration', durationController, true),
                     submitButton(),
                   ],
                 )
@@ -89,29 +137,9 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
     );
   }
 
-  Widget dateTextField(label) {
-    return Flexible(
-      child: TextFormField(
-        enabled: false,
-        controller: dateController,
-        decoration: InputDecoration(
-          labelText: label,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 17.0, horizontal: 25.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-          ),
-          labelStyle: TextStyle(
-              color: Colors.deepOrange,
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
-        ),
-      ),
-    );
-  }
-
-  Widget textFormField(label, controller) {
+  Widget textFormField(label, controller, active) {
     return TextFormField(
+      enabled: active,
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
@@ -141,7 +169,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
             borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: Colors.deepOrangeAccent)),
         onPressed: () {
-          print("submit");
+          setData();
         },
       ),
     );
