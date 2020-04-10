@@ -33,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     print("inside main init");
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
+      prefs.clear();
       setState(() {
         name = (prefs.getString('name') ?? '');
       });

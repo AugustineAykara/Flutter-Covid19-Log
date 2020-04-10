@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'homePage.dart';
 
 class EmployeeDetailPage extends StatelessWidget {
@@ -21,9 +22,9 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   TextEditingController mobileNoController = TextEditingController();
   TextEditingController empIDController = TextEditingController();
 
-  // String name = '';
-  // String empId = '';
-  // String mobileNumber = '';
+  String name = '';
+  String empId = '';
+  String mobileNumber = '';
 
   // @override
   // void initState() {
@@ -52,6 +53,20 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
       preferences.setString('name', nameController.text);
       preferences.setString('empId', empIDController.text);
       preferences.setString('mobileNumber', mobileNoController.text);
+    });
+  }
+
+  saveDataOnFirebase() {
+    setState(() {
+      print("fireabse setData");
+      Firestore.instance.collection('employeeData').document(empIDController.text).setData({
+        'name': nameController.text,
+        'empId': empIDController.text,
+        'mobileNumber': mobileNoController.text
+      });
+      Firestore.instance.collection('employeeData').document(empIDController.text).collection('logDetails').document('test').setData({
+        'name' : nameController.text
+      });
     });
   }
 
@@ -118,6 +133,7 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
                       side: BorderSide(color: Colors.deepOrangeAccent)),
                   onPressed: () {
                     saveData();
+                    saveDataOnFirebase();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
