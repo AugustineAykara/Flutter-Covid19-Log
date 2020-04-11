@@ -22,7 +22,7 @@ class ViewLogDetails extends StatefulWidget {
 }
 
 class _ViewLogDetailsState extends State<ViewLogDetails> {
-  String time, location, landmark, lattitude, longitude, person, duration;
+  String time, location, landmark, latitude, longitude, person, duration;
   var documentData;
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,15 @@ class _ViewLogDetailsState extends State<ViewLogDetails> {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (!snapshot.hasData)
-            return new Center(child: Text("Loading..."));
+            return Center(
+              child: Center(
+                child: Text("Loading...",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold)),
+              ),
+            );
           else {
             return logDetails(snapshot);
           }
@@ -63,7 +71,7 @@ class _ViewLogDetailsState extends State<ViewLogDetails> {
     time = documentData['Date & Time'];
     location = documentData['location'];
     landmark = documentData['landmark'];
-    lattitude = documentData['lattitude'];
+    latitude = documentData['latitude'];
     longitude = documentData['longitude'];
     person = documentData['person'];
     duration = documentData['duration'];
@@ -79,7 +87,7 @@ class _ViewLogDetailsState extends State<ViewLogDetails> {
           Row(
             children: <Widget>[
               Flexible(
-                child: status(Icons.border_horizontal, lattitude),
+                child: status(Icons.border_horizontal, latitude),
               ),
               Flexible(
                 child: status(Icons.border_vertical, longitude),

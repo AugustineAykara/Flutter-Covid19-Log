@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart';
 
 class EmployeeLog extends StatelessWidget {
   @override
@@ -21,22 +22,27 @@ class EmployeeLogDetails extends StatefulWidget {
 }
 
 class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
+  Position currentPosition;
+  String location;
+  String landmark;
+  String selectedTimeFormat;
+  String empId;
+  List timeFormat = ['Hour', 'Minute'];
+
   static DateTime dateTime = DateTime.now();
   static String formattedDate = DateFormat('d.MM.y hh:mm a').format(dateTime);
+  Geolocator geolocator = Geolocator();
+  // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
   // TextEditingController dateController =
   //     TextEditingController(text: formattedDate);
 
   TextEditingController locationController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
-  TextEditingController lattitudeController = TextEditingController();
+  TextEditingController latitudeController = TextEditingController();
   TextEditingController longitudeController = TextEditingController();
   TextEditingController personController = TextEditingController();
   TextEditingController durationController = TextEditingController();
-
-  List timeFormat = ['Hour', 'Minute'];
-  String selectedTimeFormat;
-
-  String empId;
 
   @override
   void initState() {
@@ -46,12 +52,47 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
         empId = (prefs.getString('empId') ?? '');
       });
     });
+    getCurrentLocation();
+  }
+
+  getCurrentLocation() {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        currentPosition = position;
+        latitudeController =
+            TextEditingController(text: currentPosition.latitude.toString());
+        longitudeController =
+            TextEditingController(text: currentPosition.longitude.toString());
+      });
+      getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          currentPosition.latitude, currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        location =
+            "${place.name}, ${place.thoroughfare},${place.subLocality}, ${place.locality}";
+            print("${place.name}, ${place.thoroughfare},${place.subLocality}, ${place.locality}");
+        locationController = TextEditingController(text: location);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   getDate() {
     dateTime = DateTime.now();
     formattedDate = DateFormat('d.MM.y hh:mm a').format(dateTime);
-    // dateController = TextEditingController(text: formattedDate);
   }
 
   setData() {
@@ -64,7 +105,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       'Date & Time': formattedDate,
       'location': locationController.text,
       'landmark': landmarkController.text,
-      'lattitude': lattitudeController.text,
+      'latitude': latitudeController.text,
       'longitude': longitudeController.text,
       'person': personController.text,
       'duration': durationController.text + " " + selectedTimeFormat
@@ -72,7 +113,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
     locationController.text = '';
     landmarkController.text = '';
     landmarkController.text = '';
-    lattitudeController.text = '';
+    latitudeController.text = '';
     longitudeController.text = '';
     personController.text = '';
     durationController.text = '';
@@ -102,21 +143,20 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
                 Wrap(
                   runSpacing: 20,
                   children: <Widget>[
-                    textFormField('Location', locationController, true,
+                    textFormField('Location', locationController, false,
                         TextInputType.text),
                     textFormField('Landmark', landmarkController, true,
                         TextInputType.text),
-                    
                     Row(
                       children: <Widget>[
                         Flexible(
-                          child: textFormField('Lattitude', lattitudeController,
-                              true, TextInputType.text),
+                          child: textFormField('Latitude', latitudeController,
+                              false, TextInputType.number),
                         ),
                         SizedBox(width: 10),
                         Flexible(
                           child: textFormField('Longitude', longitudeController,
-                              true, TextInputType.text),
+                              false, TextInputType.number),
                         ),
                       ],
                     ),
@@ -134,7 +174,6 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
                         ),
                       ],
                     ),
-
                     submitButton(),
                   ],
                 )

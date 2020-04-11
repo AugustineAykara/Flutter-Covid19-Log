@@ -46,7 +46,17 @@ class _ListLogDetailsState extends State<ListLogDetails> {
         stream: employeeSnapshot,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData)
-            return Center(child: Text("Loading..."));
+            return Center(
+              child: Center(
+                child: Text(
+                  "Loading...",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.deepOrange,
+                      fontWeight: FontWeight.bold)
+                ),
+              ),
+            );
           else {
             return ListView(
               children:
