@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: MyHomePage(),      
+      home: MyHomePage(),
     );
   }
 }
@@ -48,34 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            "Employee Details",
+            "Employee Card",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        // actions: <Widget>[
-        //   Center(
-        //     child: Text(
-        //       "My Profile",
-        //       style:
-        //           TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        //     ),
-        //   ),
-        // IconButton(
-        //   icon: Icon(Icons.account_circle),
-        //   iconSize: 32,
-        //   color: Colors.deepOrange,
-        //   onPressed: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => EmployeeDetailPage(),
-        //       ),
-        //     );
-        //   },
-        // )
-        // ],
       ),
       body: Center(
         child: Column(
@@ -98,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.deepOrangeAccent,
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(325.0),
-                    // topRight: const Radius.circular(0.0),
                   ),
                 ),
                 child: Column(
@@ -135,10 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.white
-      ),
+          fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
     );
   }
 
@@ -158,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.orangeAccent)),
             onPressed: () {
-               Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ListLogDetails(empId: empId),
@@ -177,14 +151,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: new BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.orangeAccent)),
             onPressed: () {
-
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EmployeeLogDetails(),
                 ),
               );
-
             },
           ),
         ],

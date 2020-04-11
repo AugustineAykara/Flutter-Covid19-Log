@@ -26,26 +26,6 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
   String empId = '';
   String mobileNumber = '';
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   print("inside init employeepage");
-  //   loadData();
-  // }
-
-  // loadData() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     print("inside loadDAta employeepage");
-  //     name = (preferences.getString('name') ?? '');
-  //     empId = (preferences.getString('empId') ?? '');
-  //     mobileNumber = (preferences.getString('mobileNumber') ?? '');
-  //     nameController.text = name;
-  //     empIDController.text = empId;
-  //     mobileNoController.text = mobileNumber;
-  //   });
-  // }
-
   saveData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {

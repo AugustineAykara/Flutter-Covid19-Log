@@ -81,8 +81,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
 
       setState(() {
         location =
-            "${place.name}, ${place.thoroughfare},${place.subLocality}, ${place.locality}";
-            print("${place.name}, ${place.thoroughfare},${place.subLocality}, ${place.locality}");
+            "${place.name}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}";
         locationController = TextEditingController(text: location);
       });
     } catch (e) {
@@ -110,11 +109,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
       'person': personController.text,
       'duration': durationController.text + " " + selectedTimeFormat
     });
-    locationController.text = '';
     landmarkController.text = '';
-    landmarkController.text = '';
-    latitudeController.text = '';
-    longitudeController.text = '';
     personController.text = '';
     durationController.text = '';
   }
@@ -143,31 +138,31 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
                 Wrap(
                   runSpacing: 20,
                   children: <Widget>[
-                    textFormField('Location', locationController, false,
+                    textFormField('Location', '', locationController, false,
                         TextInputType.text),
-                    textFormField('Landmark', landmarkController, true,
-                        TextInputType.text),
+                    textFormField('Landmark', 'Enter landmark',
+                        landmarkController, true, TextInputType.text),
                     Row(
                       children: <Widget>[
                         Flexible(
-                          child: textFormField('Latitude', latitudeController,
-                              false, TextInputType.number),
+                          child: textFormField('Latitude', '',
+                              latitudeController, false, TextInputType.number),
                         ),
                         SizedBox(width: 10),
                         Flexible(
-                          child: textFormField('Longitude', longitudeController,
-                              false, TextInputType.number),
+                          child: textFormField('Longitude', '',
+                              longitudeController, false, TextInputType.number),
                         ),
                       ],
                     ),
-                    textFormField(
-                        'Person', personController, true, TextInputType.text),
+                    textFormField('Person', 'Enter person name',
+                        personController, true, TextInputType.text),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Flexible(
-                          child: textFormField('Duration', durationController,
-                              true, TextInputType.number),
+                          child: textFormField('Duration', 'Enter duration',
+                              durationController, true, TextInputType.number),
                         ),
                         Flexible(
                           child: dropDownMenu(),
@@ -197,13 +192,14 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
     );
   }
 
-  Widget textFormField(label, controller, active, type) {
+  Widget textFormField(label, hint, controller, active, type) {
     return TextFormField(
       enabled: active,
       controller: controller,
       keyboardType: type,
       decoration: InputDecoration(
         labelText: label,
+        hintText: hint,
         contentPadding: EdgeInsets.symmetric(vertical: 17.0, horizontal: 25.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
@@ -263,9 +259,7 @@ class _EmployeeLogDetailsState extends State<EmployeeLogDetails> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text("Form Submission"),
-                // titleTextStyle: TextStyle(color : Colors.deepOrange, fontWeight: FontWeight.bold, fontSize: 18),
                 content: Text("Form submitted successfully"),
-                // contentTextStyle: TextStyle(color : Colors.green, fontWeight: FontWeight.bold, fontSize: 16),
                 actions: [
                   FlatButton(
                     child: Text("Done"),
